@@ -1,4 +1,5 @@
 const { readFile, writeFile } = require("fs");
+console.log('entering arena');
 
 readFile('./content/first.txt', 'utf8', (err, result) => {
     if (err) {
@@ -21,9 +22,13 @@ readFile('./content/first.txt', 'utf8', (err, result) => {
 
             }
             console.log(result);
+            console.log('done with the tas');
+            
 
         })
 
     })
 
 })
+
+console.log('satrting new task');

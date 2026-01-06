@@ -1,0 +1,25 @@
+{
+  "name": "vid-express-and-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "10-os-modules.js",
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  },
+  "scripts": {
+    "start": "nodemon app.js",
+    "dev": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ANONYMOUS4636/Node-and-Express.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ANONYMOUS4636/Node-and-Express/issues"
+  },
+  "homepage": "https://github.com/ANONYMOUS4636/Node-and-Express#readme"
+}
