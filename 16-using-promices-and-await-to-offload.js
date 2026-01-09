@@ -1,21 +1,27 @@
-const fs=require("fs")
-const getText=(path)=>{
-    return new Promise((resolve,reject)=>{
-        fs.readFile(path,"utf8",(err,data)=>{
-            if(err){
+const fs = require("fs")
+const getText = (path) => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path, "utf8", (err, data) => {
+            if (err) {
                 reject(err);
             }
-            else{
+            else {
                 resolve(data);
             }
         })
     })
 }
 
-const start= async ()=>{
-    const first=await getText('./content/first.txt');
-    console.log(first);
-    
+const start = async () => {
+    try {
+        const first = await getText('./content/first.txt');
+        console.log(first);
+    } catch (error) {
+        console.log(err);
+
+    }
+
+
 }
 
 start();
