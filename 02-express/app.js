@@ -1,43 +1,22 @@
-const http=require('http')
-const fs=require('fs')
-const homePage=fs.readFileSync('./nav-bar/index.html')
-const homestyles=fs.readFileSync('./nav-bar/styles.css')
-const homelogo=fs.readFileSync('./nav-bar/logo.svg')
-const homelogic=fs.readFileSync('./nav-bar/browser-app.js')
-const server=http.createServer((req,res)=>{
-    const url=req.url;
-    console.log(req.url);
-    
-    if(req.url === '/'){
+const express=require('express')
+const path=require('path')
 
-        res.writeHead(200,{'content-type':'text/html'})
-        res.write(homePage)
-        res.end()
-    }
+const app=express()
 
-    else if(url==='/logo.svg'){
-        res.writeHead(200,{'content-type':'image/svg+xml'})
-        res.write(homelogo)
-        res.end()
-    }
+//setup static or middleware
+app.use(express.static('./public'))
 
-    else if(url==='/browser-app.js'){
-        res.writeHead(200,{'content-type':'text/javascript'})
-        res.write(homelogic)
-        res.end()
-    }
 
-    else if(url==='/styles.css'){
-        res.writeHead(200,{'content-type':'text/css'})
-        res.write(homestyles)
-        res.end()
-    }
+//we can use this otherwise the above one where we can dump all the static assets in public and the server will automatically serve the  index.html as root
+// app.get('/',(req,res) => {
+//     res.sendFile(path.resolve(__dirname,'./nav-bar/index.html'))
+// })
 
-    else{
-        res.writeHead(404, {'content-type':'text/plain'})
-        res.end('404 page not found')
-    }
-    console.log('user');
+app.use((req, res) => {
+    res.status(404).send('<h1>Resource not found</h1>')
 })
 
-server.listen(5000)
+app.listen(5000,() => {
+  console.log('app listening at port 5000');
+}
+)
