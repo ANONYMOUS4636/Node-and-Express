@@ -1,22 +1,35 @@
-const express=require('express')
-const path=require('path')
+const express = require('express')
+const { products } = require('./data')
 
-const app=express()
+const app = express()
 
-//setup static or middleware
-app.use(express.static('./public'))
-
-
-//we can use this otherwise the above one where we can dump all the static assets in public and the server will automatically serve the  index.html as root
-// app.get('/',(req,res) => {
-//     res.sendFile(path.resolve(__dirname,'./nav-bar/index.html'))
-// })
-
-app.use((req, res) => {
-    res.status(404).send('<h1>Resource not found</h1>')
+app.get('/', (req, res) => {
+    res.json(products)
 })
 
-app.listen(5000,() => {
-  console.log('app listening at port 5000');
-}
-)
+
+app.get('/api/products', (req, res) => {
+    const newProduct = products.map((product) => {
+        const { id, name, image } = product
+        return { id, name, image }
+    })
+
+    res.status(200).json(newProduct)
+})
+
+app.get('/api/products/query', (req, res) => {
+    const { search, limit } = req.query;
+    let datab = [...products]
+    if (search) {
+        datab = datab.filter((n) => n.name.startsWith(search))
+    }
+    if (limit) {
+        datab = datab.slice(0, Number(limit))
+    }
+
+    res.status(200).json(datab)
+})
+
+app.listen(5000, () => {
+    console.log('5000');
+})
