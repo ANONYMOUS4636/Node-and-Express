@@ -1,35 +1,26 @@
-const express = require('express')
-const { products } = require('./data')
+const express=require('express')
+const {products}=require('./data')
+const logger=require('./logger')
 
-const app = express()
+const app=express()
 
-app.get('/', (req, res) => {
-    res.json(products)
+app.use(logger)
+// in app.use() order matters
+//we can also pass the other arguments in app.use() such as  app.use('./api',logger) it means it will apply to products as well as items it will also apply to all further routes such as api/home/products
+
+app.get('/',(req,res)=>{
+ res.send('home')
+})
+app.get('/about',(req,res)=>{
+ res.send('about')
+})
+app.get('/api/products',(req,res)=>{
+ res.send('products')
+})
+app.get('/api/items',(req,res)=>{
+ res.send('items')
 })
 
-
-app.get('/api/products', (req, res) => {
-    const newProduct = products.map((product) => {
-        const { id, name, image } = product
-        return { id, name, image }
-    })
-
-    res.status(200).json(newProduct)
-})
-
-app.get('/api/products/query', (req, res) => {
-    const { search, limit } = req.query;
-    let datab = [...products]
-    if (search) {
-        datab = datab.filter((n) => n.name.startsWith(search))
-    }
-    if (limit) {
-        datab = datab.slice(0, Number(limit))
-    }
-
-    res.status(200).json(datab)
-})
-
-app.listen(5000, () => {
+app.listen(5000,()=>{
     console.log('5000');
 })
