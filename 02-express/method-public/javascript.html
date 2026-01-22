@@ -9,6 +9,8 @@
     <title>Javascript</title>
   </head>
   <body>
+
+
     <nav>
       <div class="nav-center">
         <h5>HTTP Methods</h5>
@@ -18,6 +20,8 @@
         </div>
       </div>
     </nav>
+
+
     <main>
       <section>
         <form>
@@ -50,6 +54,8 @@
         try {
           const { data } = await axios.get('/api/people')
 
+          // When you use await axios.get('/api/people'), Axios returns a "Response Object" that contains several properties (like status, headers, and config). One of those properties is always named data, which contains the actual body sent by your backend.
+
           const people = data.data.map((person) => {
             return `<h5>${person.name}</h5>`
           })
@@ -76,6 +82,15 @@
           // console.log(error.response)
           formAlert.textContent = error.response.data.msg
         }
+//         When an Axios request fails (e.g., a 400 or 500 status code), Axios creates a "Super Object" containing everything that went wrong. If you were to console.log(error), you would see a massive object that includes:
+
+// message: A short string (e.g., "Request failed with status code 400").
+
+// name: The type of error (e.g., "AxiosError").
+
+// config: The original settings you sent (URL, headers, data).
+
+// response: This is the most important part. It is an object created by Axios to hold the data the server sent back after the failure.
         input.value = ''
       })
     </script>
